@@ -25,6 +25,7 @@
   ],
   "rules": {
     "no-console": "off",
+    "react/react-in-jsx-scope": "off",
     "simple-import-sort/imports": ["warn", {
       "groups": [
         ["^(react|react-dom)$"],
