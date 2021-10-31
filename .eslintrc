@@ -25,7 +25,10 @@
   ],
   "rules": {
     "no-console": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
     "simple-import-sort/imports": ["warn", {
       "groups": [
         ["^(react|react-dom)$"],
