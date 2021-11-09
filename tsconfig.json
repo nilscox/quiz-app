@@ -2,6 +2,6 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
-    "jsx": "preserve"
+    "jsx": "react-jsx"
   }
 }

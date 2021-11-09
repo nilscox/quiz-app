@@ -45,13 +45,11 @@ const config = (module.exports = {
 });
 
 if (NODE_ENV === 'development') {
-  config.plugins.push(new HotModuleReplacementPlugin());
   config.plugins.push(new ReactRefreshWebpackPlugin());
 
   config.devServer = {
     host: HOST,
     port: Number(PORT),
-    hot: true,
   };
 }
 
