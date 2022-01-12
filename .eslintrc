@@ -4,12 +4,18 @@
     "project": ["./tsconfig.json"],
     "createDefaultProgram": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "env": {
     "browser": true
   },
   "globals": {
     "process": "readonly"
   },
+  // prettier-ignore
   "plugins": [
     "simple-import-sort",
     "@typescript-eslint",
@@ -29,6 +35,7 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/display-name": "off",
+    // prettier-ignore
     "simple-import-sort/imports": ["warn", {
       "groups": [
         ["^(react|react-dom)$"],
