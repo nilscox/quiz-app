@@ -8,6 +8,7 @@ export default defineConfig({
     mockReset: true,
     environment: 'happy-dom',
     setupFiles: ['./vitest.setup.ts'],
+    watch: false,
   },
   plugins: [tsconfigPaths(), reactJsx()],
 });
