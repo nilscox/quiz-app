@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { expect } from 'earljs';
 
 import { App } from './App';
 
