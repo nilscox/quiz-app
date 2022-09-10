@@ -51,10 +51,10 @@ describe('validateAnswer', () => {
   });
 
   it('marks the question as validated', async () => {
+    // ARRANGE
     const answer = createAnswer({ selected: true });
     const question = createQuestion({ id: 'questionId', answers: [answer] });
 
-    // ARRANGE
     store.dispatch(setQuestion(question));
 
     // ACT
@@ -70,9 +70,9 @@ describe('validateAnswer', () => {
   });
 
   it('throws an error when no answer is selected', async () => {
+    // ARRANGE
     const question = createQuestion({ answers: [] });
 
-    // ARRANGE
     store.dispatch(setQuestion(question));
 
     // ACT / ASSERT

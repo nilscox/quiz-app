@@ -14,10 +14,10 @@ describe('toggleAnswer', () => {
   });
 
   it("marks a question's answer as selected", () => {
+    // ARRANGE
     const answer = createAnswer({ selected: false });
     const question = createQuestion({ answers: [answer] });
 
-    // ARRANGE
     store.dispatch(setQuestion(question));
 
     // ACT
@@ -28,10 +28,10 @@ describe('toggleAnswer', () => {
   });
 
   it('marks the answer as not selected when it is already selected', () => {
+    // ARRANGE
     const answer = createAnswer({ selected: true });
     const question = createQuestion({ answers: [answer] });
 
-    // ARRANGE
     store.dispatch(setQuestion(question));
 
     // ACT
@@ -42,11 +42,11 @@ describe('toggleAnswer', () => {
   });
 
   it('marks another previously selected answer as unselected', () => {
+    // ARRANGE
     const selectedAnswer = createAnswer({ selected: true });
     const otherAnswer = createAnswer({ selected: false });
     const question = createQuestion({ answers: [selectedAnswer, otherAnswer] });
 
-    // ARRANGE
     store.dispatch(setQuestion(question));
 
     // ACT
