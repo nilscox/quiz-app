@@ -1,4 +1,3 @@
-import { createAnswer, createQuestion } from '../libs/entity-creators';
 import { configureStore } from '../store/configure-store';
 import { AppStore } from '../store/store-types';
 
@@ -10,6 +9,7 @@ import {
   selectQuestion,
   selectSelectedAnswer,
 } from './selectors';
+import { createAnswer, createQuestion } from './test/entity-creators';
 
 describe('selectors', () => {
   let store: AppStore;

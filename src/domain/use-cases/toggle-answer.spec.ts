@@ -1,8 +1,8 @@
-import { createAnswer, createQuestion } from '../../libs/entity-creators';
 import { configureStore } from '../../store/configure-store';
 import { AppStore } from '../../store/store-types';
 import { setQuestion } from '../actions';
 import { selectAnswers } from '../selectors';
+import { createAnswer, createQuestion } from '../test/entity-creators';
 
 import { toggleAnswer } from './toggle-answer';
 

@@ -1,6 +1,10 @@
-import { createAction } from '../libs/create-action';
-
 import { Question, Answer } from './entities';
+
+type Action<Type extends string, Payload> = { type: Type } & Payload;
+
+const createAction = <Type extends string, Payload>(type: Type, payload?: Payload) => {
+  return { type, ...payload } as Action<Type, Payload>;
+};
 
 export const setQuestion = (question: Question) => {
   return createAction('setQuestion', { question });

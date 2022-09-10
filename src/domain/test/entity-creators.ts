@@ -1,4 +1,4 @@
-import { Answer, Question } from '../domain/entities';
+import { Answer, Question } from '../entities';
 
 type Factory<T> = (overrides?: Partial<T>) => T;
 
