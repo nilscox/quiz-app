@@ -18,6 +18,14 @@ export const setAnswerSelected = (answer: Answer, selected = true) => {
   return createAction('setAnswerSelected', { answer, selected });
 };
 
+export const setQuestionValidated = (validated = true) => {
+  return createAction('setQuestionValidated', { validated });
+};
+
 export type AppAction = ReturnType<
-  typeof setQuestion | typeof setQuestionText | typeof addAnswer | typeof setAnswerSelected
+  | typeof setQuestion
+  | typeof setQuestionText
+  | typeof addAnswer
+  | typeof setAnswerSelected
+  | typeof setQuestionValidated
 >;

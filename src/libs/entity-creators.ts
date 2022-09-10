@@ -10,6 +10,7 @@ export const createQuestion: Factory<Question> = (overrides = {}) => ({
   id: randomId(),
   text: '',
   answers: [],
+  validated: false,
   ...overrides,
 });
 

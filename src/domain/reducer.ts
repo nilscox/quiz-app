@@ -37,5 +37,12 @@ export const questionReducer = (state: Question | null = null, action: AppAction
     };
   }
 
+  if (action.type === 'setQuestionValidated') {
+    return {
+      ...state,
+      validated: true,
+    };
+  }
+
   return state;
 };
