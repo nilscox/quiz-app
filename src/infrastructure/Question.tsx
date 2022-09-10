@@ -1,6 +1,6 @@
 import { FormEventHandler, useCallback } from 'react';
 
-import { selectQuestion } from '../domain/selectors';
+import { selectCanSelectAnswer, selectCanValidateAnswer, selectQuestion } from '../domain/selectors';
 import { validateAnswer } from '../domain/use-cases/validate-answer';
 
 import { Answer } from './Answer';
@@ -10,6 +10,8 @@ import { useAppSelector } from './hooks/use-app-selector';
 export const Question = () => {
   const dispatch = useAppDispatch();
   const question = useAppSelector(selectQuestion);
+  const canSelectAnswer = useAppSelector(selectCanSelectAnswer);
+  const canValidateAnswer = useAppSelector(selectCanValidateAnswer);
 
   const handleSubmit = useCallback<FormEventHandler>(
     (event) => {
@@ -24,22 +26,20 @@ export const Question = () => {
   }
 
   return (
-    <form
-      className="container d-flex flex-column p-4 bg-white shadow rounded"
-      style={{ maxWidth: 800 }}
-      onSubmit={handleSubmit}
-    >
-      <p className="fw-medium fs-3">{question.text}</p>
+    <form className="container p-4 bg-white shadow rounded" style={{ maxWidth: 800 }} onSubmit={handleSubmit}>
+      <fieldset className="d-flex flex-column" disabled={!canSelectAnswer}>
+        <p className="fw-medium fs-3">{question.text}</p>
 
-      <ul>
-        {question.answers.map((answer) => (
-          <Answer key={answer.id} answer={answer} />
-        ))}
-      </ul>
+        <ul>
+          {question.answers.map((answer) => (
+            <Answer key={answer.id} answer={answer} />
+          ))}
+        </ul>
 
-      <button type="submit" className="btn btn-primary align-self-end">
-        Valider
-      </button>
+        <button type="submit" disabled={!canValidateAnswer} className="btn btn-primary align-self-end">
+          Valider
+        </button>
+      </fieldset>
     </form>
   );
 };

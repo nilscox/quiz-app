@@ -4,6 +4,8 @@ import { setQuestion } from './actions';
 import {
   selectAnswers,
   selectAnswersMatching,
+  selectCanSelectAnswer,
+  selectCanValidateAnswer,
   selectCorrectAnswer,
   selectQuestion,
   selectSelectedAnswer,
@@ -93,7 +95,30 @@ describe('selectors', () => {
     });
   });
 
-  describe('selectCorrectAnswer', () => {
+  describe('selectCanSelectAnswer', () => {
+    it('returns true when the question is not validated', () => {
+      // ARRANGE
+      store.dispatch(setQuestion(createQuestion({ validated: false })));
+
+      // ACT / ASSERT
+      expect(selectCanSelectAnswer(store.getState())).toBe(true);
+    });
+
+    it('returns false when the question is validated', () => {
+      // ARRANGE
+      store.dispatch(setQuestion(createQuestion({ validated: true })));
+
+      // ACT / ASSERT
+      expect(selectCanSelectAnswer(store.getState())).toBe(false);
+    });
+
+    it('returns false when no question is set', () => {
+      // ACT / ASSERT
+      expect(selectCanSelectAnswer(store.getState())).toBe(false);
+    });
+  });
+
+  describe('selectSelectedAnswer', () => {
     const selectedAnswer = createAnswer({ selected: true });
     const notSelectedAnswer = createAnswer({ selected: false });
     const question = createQuestion({ answers: [selectedAnswer, notSelectedAnswer] });
@@ -109,6 +134,43 @@ describe('selectors', () => {
     it('returns undefined when no question is set', () => {
       // ACT / ASSERT
       expect(selectSelectedAnswer(store.getState())).toBeUndefined();
+    });
+  });
+
+  describe('selectCanValidateAnswer', () => {
+    it('returns true when an answer is selected and the question is not already validated', () => {
+      // ARRANGE
+      const question = createQuestion({ answers: [createAnswer({ selected: true })], validated: false });
+
+      store.dispatch(setQuestion(question));
+
+      // ACT / ASSERT
+      expect(selectCanValidateAnswer(store.getState())).toBe(true);
+    });
+
+    it('returns false when no answer is selected', () => {
+      // ARRANGE
+      const question = createQuestion({ answers: [createAnswer({ selected: false })], validated: false });
+
+      store.dispatch(setQuestion(question));
+
+      // ACT / ASSERT
+      expect(selectCanValidateAnswer(store.getState())).toBe(false);
+    });
+
+    it('returns false when the question is already validated', () => {
+      // ARRANGE
+      const question = createQuestion({ answers: [createAnswer({ selected: true })], validated: true });
+
+      store.dispatch(setQuestion(question));
+
+      // ACT / ASSERT
+      expect(selectCanValidateAnswer(store.getState())).toBe(false);
+    });
+
+    it('returns false when no question is set', () => {
+      // ACT / ASSERT
+      expect(selectCanValidateAnswer(store.getState())).toBe(false);
     });
   });
 });

@@ -47,4 +47,28 @@ describe('Question', () => {
     // ASSERT
     expect(questionAdapter.answeredQuestion).toBeDefined();
   });
+
+  it('disables the submit button when the question is validated', async () => {
+    // ARRANGE
+    const store = configureTestStore();
+
+    store.dispatch(setQuestion(createQuestion({ validated: true })));
+    render(<Question />, store);
+
+    // ASSERT
+    expect(screen.getByRole('button', { name: 'Valider' })).toBeDisabled();
+  });
+
+  it('prevents to change the answer when the question was validated', async () => {
+    // ARRANGE
+    const answer1 = createAnswer({ text: 'answer 1', selected: true });
+    const answer2 = createAnswer({ text: 'answer 2', selected: false });
+    const store = configureTestStore();
+
+    store.dispatch(setQuestion(createQuestion({ answers: [answer1, answer2], validated: true })));
+    render(<Question />, store);
+
+    // ASSERT
+    expect(screen.getByLabelText('answer 2')).toBeDisabled();
+  });
 });
