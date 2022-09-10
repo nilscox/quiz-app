@@ -1,4 +1,3 @@
-import { configureStore } from '../store/configure-store';
 import { AppStore } from '../store/store-types';
 
 import { setQuestion } from './actions';
@@ -9,13 +8,14 @@ import {
   selectQuestion,
   selectSelectedAnswer,
 } from './selectors';
+import { configureTestStore } from './test/configure-test-store';
 import { createAnswer, createQuestion } from './test/entity-creators';
 
 describe('selectors', () => {
   let store: AppStore;
 
   beforeEach(() => {
-    store = configureStore();
+    store = configureTestStore();
   });
 
   describe('selectQuestion', () => {

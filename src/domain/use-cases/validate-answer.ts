@@ -3,7 +3,7 @@ import { setQuestionValidated } from '../actions';
 import { selectQuestion, selectSelectedAnswer } from '../selectors';
 
 export const validateAnswer = (): Thunk => {
-  return async (dispatch, getState) => {
+  return async (dispatch, getState, { questionAdapter }) => {
     const question = selectQuestion(getState());
     const selectedAnswer = selectSelectedAnswer(getState());
 
@@ -15,10 +15,7 @@ export const validateAnswer = (): Thunk => {
       throw new Error('There is no selected answer');
     }
 
-    await fetch(`/question/${question.id}/answer`, {
-      method: 'POST',
-      body: selectedAnswer.text,
-    });
+    questionAdapter.saveAnswer(question, selectedAnswer);
 
     dispatch(setQuestionValidated());
   };

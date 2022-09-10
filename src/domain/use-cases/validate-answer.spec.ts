@@ -2,33 +2,52 @@ import { configureStore } from '../../store/configure-store';
 import { AppStore } from '../../store/store-types';
 import { setQuestion } from '../actions';
 import { selectQuestion } from '../selectors';
+import { configureTestStore } from '../test/configure-test-store';
 import { createAnswer, createQuestion } from '../test/entity-creators';
+import { MockQuestionAdapter } from '../test/mock-question-adapter';
+import { StubQuestionAdapter } from '../test/stub-question-adapter';
 
 import { validateAnswer } from './validate-answer';
 
 describe('validateAnswer', () => {
+  let questionAdapter: StubQuestionAdapter;
   let store: AppStore;
 
   beforeEach(() => {
-    store = configureStore();
-    window.fetch = vi.fn();
+    questionAdapter = new StubQuestionAdapter();
+    store = configureTestStore({ questionAdapter });
   });
 
   it('calls an API endpoint to validate the selected answer', async () => {
+    // ARRANGE
     const answer = createAnswer({ text: 'answer text', selected: true });
     const question = createQuestion({ id: 'questionId', answers: [answer] });
 
-    // ARRANGE
     store.dispatch(setQuestion(question));
 
     // ACT
     await store.dispatch(validateAnswer());
 
     // ASSERT
-    expect(window.fetch).toHaveBeenCalledWith('/question/questionId/answer', {
-      method: 'POST',
-      body: 'answer text',
-    });
+    expect(questionAdapter.answeredQuestion).toBe(question);
+    expect(questionAdapter.selectedAnswer).toBe(answer);
+  });
+
+  it('also calls an API endpoint (mock adapter version)', async () => {
+    // ARRANGE
+    const answer = createAnswer({ text: 'answer text', selected: true });
+    const question = createQuestion({ id: 'questionId', answers: [answer] });
+
+    const questionAdapter = new MockQuestionAdapter();
+    const store = configureStore({ questionAdapter });
+
+    store.dispatch(setQuestion(question));
+
+    // ACT
+    await store.dispatch(validateAnswer());
+
+    // ASSERT
+    expect(questionAdapter.saveAnswer).toHaveBeenCalledWith(question, answer);
   });
 
   it('marks the question as validated', async () => {

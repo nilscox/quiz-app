@@ -1,7 +1,7 @@
-import { configureStore } from '../../store/configure-store';
 import { AppStore } from '../../store/store-types';
 import { setQuestion } from '../actions';
 import { selectAnswers } from '../selectors';
+import { configureTestStore } from '../test/configure-test-store';
 import { createAnswer, createQuestion } from '../test/entity-creators';
 
 import { toggleAnswer } from './toggle-answer';
@@ -10,7 +10,7 @@ describe('toggleAnswer', () => {
   let store: AppStore;
 
   beforeEach(() => {
-    store = configureStore();
+    store = configureTestStore();
   });
 
   it("marks a question's answer as selected", () => {
