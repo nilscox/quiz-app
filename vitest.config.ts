@@ -8,7 +8,7 @@ export default defineConfig({
   test: {
     globals: true,
     mockReset: true,
-    environment: 'happy-dom',
+    environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     reporters: 'verbose',
     watch: false,

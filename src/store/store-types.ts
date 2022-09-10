@@ -14,4 +14,8 @@ export type AppStore = ReturnType<typeof configureStore>;
 export type AppState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore['dispatch'];
 
+export interface AppSelector<ReturnType, Parameters extends unknown[]> {
+  (state: AppState, ...params: Parameters): ReturnType;
+}
+
 export type Thunk<ReturnType = void> = ThunkAction<ReturnType, AppState, Dependencies, AppAction>;
