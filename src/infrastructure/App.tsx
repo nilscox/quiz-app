@@ -6,9 +6,14 @@ import { configureStore } from '../store/configure-store';
 
 import { Question } from './Question';
 import { HttpQuestionAdapter } from './adapters/http-question-adapter';
+import { LocalStorageQuestionAdapter } from './adapters/local-storage-question-adapter';
+
+HttpQuestionAdapter;
+LocalStorageQuestionAdapter;
 
 const store = configureStore({
-  questionAdapter: new HttpQuestionAdapter(),
+  // questionAdapter: new HttpQuestionAdapter(),
+  questionAdapter: new LocalStorageQuestionAdapter(),
 });
 
 const question = createQuestion({
