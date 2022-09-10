@@ -1,0 +1,1 @@
+This repository hosts the final code of this (french) [blog article](https://billowy-cerise-731.notion.site/Clean-Architecture-Frontend-28129c045fb64a13b65c1d43c943ec2b), talking about clean architecture in the frontend world.
