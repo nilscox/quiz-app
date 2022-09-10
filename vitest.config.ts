@@ -1,4 +1,4 @@
-import reactJsx from 'vite-react-jsx';
+import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
@@ -10,5 +10,5 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     watch: false,
   },
-  plugins: [tsconfigPaths(), reactJsx()],
+  plugins: [tsconfigPaths(), react()],
 });
