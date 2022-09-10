@@ -11,3 +11,9 @@ export type Answer = {
   correct: boolean;
   selected: boolean;
 };
+
+export enum AnswerCorrection {
+  none = 'none',
+  correct = 'correct',
+  incorrect = 'incorrect',
+}

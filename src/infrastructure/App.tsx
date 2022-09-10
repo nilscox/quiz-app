@@ -22,7 +22,7 @@ const question = createQuestion({
     createAnswer({ text: 'Oui' }),
     createAnswer({ text: 'Faux' }),
     createAnswer({ text: 'Quarante-deux' }),
-    createAnswer({ text: 'La réponse D' }),
+    createAnswer({ text: 'La réponse D', correct: true }),
   ],
 });
 

@@ -1,7 +1,9 @@
 import { AppStore } from '../store/store-types';
 
 import { setQuestion } from './actions';
+import { AnswerCorrection } from './entities';
 import {
+  selectAnswerCorrection,
   selectAnswers,
   selectAnswersMatching,
   selectCanSelectAnswer,
@@ -171,6 +173,52 @@ describe('selectors', () => {
     it('returns false when no question is set', () => {
       // ACT / ASSERT
       expect(selectCanValidateAnswer(store.getState())).toBe(false);
+    });
+  });
+
+  describe('selectAnswerCorrection', () => {
+    it('returns "correct", when the answer is correct', () => {
+      // ARRANGE
+      const answer = createAnswer({ correct: true });
+      const question = createQuestion({ answers: [answer], validated: true });
+
+      store.dispatch(setQuestion(question));
+
+      // ACT / ASSERT
+      expect(selectAnswerCorrection(store.getState(), answer.id)).toBe(AnswerCorrection.correct);
+    });
+
+    it('returns "incorrect", when the answer is not correct and was selected', () => {
+      // ARRANGE
+      const answer = createAnswer({ correct: false, selected: true });
+      const question = createQuestion({ answers: [answer], validated: true });
+
+      store.dispatch(setQuestion(question));
+
+      // ACT / ASSERT
+      expect(selectAnswerCorrection(store.getState(), answer.id)).toBe(AnswerCorrection.incorrect);
+    });
+
+    it('returns "none", when the question is not validated', () => {
+      // ARRANGE
+      const answer = createAnswer();
+      const question = createQuestion({ answers: [answer], validated: false });
+
+      store.dispatch(setQuestion(question));
+
+      // ACT / ASSERT
+      expect(selectAnswerCorrection(store.getState(), answer.id)).toBe(AnswerCorrection.none);
+    });
+
+    it('returns "none", when the answer is not correct but was not selected', () => {
+      // ARRANGE
+      const answer = createAnswer({ correct: false, selected: false });
+      const question = createQuestion({ answers: [answer], validated: false });
+
+      store.dispatch(setQuestion(question));
+
+      // ACT / ASSERT
+      expect(selectAnswerCorrection(store.getState(), answer.id)).toBe(AnswerCorrection.none);
     });
   });
 });
